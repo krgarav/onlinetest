@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.question_container {
+  height: 100dvh;
+  display: flex;
+}
+.timer_container {
+  display: flex;
+  height: 50px;
+  background-color: aqua;
+  justify-content: center;
+  padding: 10px;
+  align-items: center;
+}
+.first_box {
+  width: 70dvw;
+}
+.userdetail_box {
+  height: 10dvh;
+}
+.attempted_box {
+  height: 85dvh;
+}
+.submit_box {
+  height: 5dvh;
+  display: flex;
+  justify-content: center;
+}
+.submit_box button {
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: none;
+  color: whitesmoke;
+  background-color: rgb(14, 83, 149);
+}
+.submit_box button:hover {
+  background-color: rgb(68, 96, 142);
+  color: whitesmoke;
+}
+.second_box {
+  width: 30dvw;
+}

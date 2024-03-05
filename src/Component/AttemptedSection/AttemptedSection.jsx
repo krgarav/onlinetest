@@ -5,14 +5,21 @@ import { Col, Row, Container } from "react-bootstrap";
 import QuestionContext from "../../Store/Questions_context";
 import { useContext } from "react";
 import { FaSquare } from "react-icons/fa6";
+import { useState } from "react";
 function AttemptedSection() {
   const contextState = useContext(QuestionContext);
+  const [attempted, setAttempted] = useState([]);
   const handleClick = (id) => {
-    console.log(id);
+    setAttempted((prev) => {
+      return [...prev, id];
+    });
     contextState.addToCurrentQuestion(id);
   };
 
   const iconpack = allQuestions.map((item) => {
+    const activeClass = attempted.includes(item.id)
+      ? classes.answered
+      : classes.notAnswered;
     return (
       <Col
         key={item.id}
@@ -21,7 +28,7 @@ function AttemptedSection() {
         }}
       >
         <div className={classes.iconContainer}>
-          <FaSquare className={classes.notAnswered} />
+          <FaSquare className={activeClass} />
           <span className={classes.id}>{item.id}</span>
         </div>
       </Col>

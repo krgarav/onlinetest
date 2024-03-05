@@ -2,7 +2,8 @@ import React from "react";
 
 const QuestionContext = React.createContext({
     questionsWithAnswered:[],
-    addAnswerToQuestion:()=>{},
+    currentQuestion :[],
+    addToCurrentQuestion:()=>{},
     removeQuestion:()=>{},
 });
 

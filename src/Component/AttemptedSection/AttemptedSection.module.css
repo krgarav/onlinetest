@@ -13,6 +13,12 @@
   height: 100%;
 }
 .answered{
+  color: green;
+  font-size: 3.5rem;
+  transform: rotate(180deg);
+  margin: 2px;
+}
+.skip{
   color: yellow;
   font-size: 3.5rem;
   transform: rotate(180deg);

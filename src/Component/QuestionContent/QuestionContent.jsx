@@ -1,27 +1,26 @@
 import React, { Fragment, useEffect, useState } from "react";
 import allQuestions from "../Allquestion/Allquestion";
 import classes from "./QuestionContent.module.css";
+import QuestionContext from "../../Store/Questions_context";
+import { useContext } from "react";
 function QuestionContent(props) {
   const [currentQuestion, setCurrentQuestion] = useState([]);
-  const [currentQuestionId, setCurrentQuestionId] = useState(1);
+  const [currentQuestionId, setCurrentQuestionId] = useState(2);
   const [selectedOption, setSelectedOption] = useState(null);
+  const contextState = useContext(QuestionContext);
 
-  const handleOptionChange = (e) => {
-    setSelectedOption((value)=>{
-      console.log(e.target.value);
-      return value=e.target.value;
-    });
-    // console.log(selectedOption);
-  };
   useEffect(() => {
-    const q1 = allQuestions.filter((item) => {
-      return item.id === currentQuestionId;
-    });
-    // setSelectedOption("");
-    setCurrentQuestion(q1);
-  }, [currentQuestionId]);
+    contextState.addToCurrentQuestion(1);
+  }, []);
 
-  const singleQuestion = currentQuestion.map((item, index) => {
+  console.log(contextState);
+  const handleOptionChange = (e) => {
+    setSelectedOption((value) => {
+      console.log(e.target.value);
+      return (value = e.target.value);
+    });
+  };
+  const singleQuestion = contextState.currentQuestion.map((item, index) => {
     return (
       <div key={index}>
         <h1>Question No {item.id} </h1>
@@ -74,27 +73,6 @@ function QuestionContent(props) {
             </li>
           </ul>
         </form>
-
-        {/* <form>
-          <ul className={classes.option}>
-            <li>
-              <input type="radio" name={`question_${item.id}`} />
-              <label>{item.options.opt1}</label>
-            </li>
-            <li>
-              <input type="radio" name={`question_${item.id}`} />
-              <label>{item.options.opt2}</label>
-            </li>
-            <li>
-              <input type="radio" name={`question_${item.id}`} />
-              <label>{item.options.opt3}</label>
-            </li>
-            <li>
-              <input type="radio" name={`question_${item.id}`} />
-              <label>{item.options.opt4}</label>
-            </li>
-          </ul>
-        </form> */}
       </div>
     );
   });
@@ -102,8 +80,10 @@ function QuestionContent(props) {
   const prevClickHandler = () => {
     setCurrentQuestionId((prev) => {
       if (prev !== 1) {
+        contextState.addToCurrentQuestion(prev - 1);
         return prev - 1;
       } else {
+        contextState.addToCurrentQuestion(prev);
         return prev;
       }
     });
@@ -111,8 +91,10 @@ function QuestionContent(props) {
   const nextClickHandler = () => {
     setCurrentQuestionId((next) => {
       if (next !== allQuestions.length) {
+        contextState.addToCurrentQuestion(next + 1);
         return next + 1;
       } else {
+        contextState.addToCurrentQuestion(next);
         return next;
       }
     });

@@ -1,14 +1,25 @@
 import React from "react";
-import { IoSquare } from "react-icons/io5";
 import classes from "./AttemptedSection.module.css";
 import allQuestions from "../Allquestion/Allquestion";
 import { Col, Row, Container } from "react-bootstrap";
-
+import QuestionContext from "../../Store/Questions_context";
+import { useContext } from "react";
 import { FaSquare } from "react-icons/fa6";
 function AttemptedSection() {
+  const contextState = useContext(QuestionContext);
+  const handleClick = (id) => {
+    console.log(id);
+    contextState.addToCurrentQuestion(id);
+  };
+
   const iconpack = allQuestions.map((item) => {
     return (
-      <Col key={item.id}>
+      <Col
+        key={item.id}
+        onClick={() => {
+          handleClick(item.id);
+        }}
+      >
         <div className={classes.iconContainer}>
           <FaSquare className={classes.notAnswered} />
           <span className={classes.id}>{item.id}</span>
@@ -19,10 +30,12 @@ function AttemptedSection() {
   return (
     <div className={classes.attempted_container}>
       <section>
-      <FaSquare className={classes.answered} />
-        <span>Answered</span>
+        <FaSquare className={classes.skip} />
+        <span>Skip</span>
         <FaSquare className={classes.notAnswered} />
         <span>Not Visited</span>
+        <FaSquare className={classes.answered} />
+        <span>Answered</span>
       </section>
       <hr />
       <section>

@@ -12,48 +12,64 @@
   border: 0.5px solid black;
   height: 100%;
 }
-.answered{
-  color: green;
+.answered {
+  color: rgba(48, 112, 48, 0.938);
   font-size: 3.5rem;
   transform: rotate(180deg);
   margin: 2px;
 }
-.skip{
-  color: yellow;
+.skip {
+  color: rgb(220, 220, 83);
   font-size: 3.5rem;
   transform: rotate(180deg);
   margin: 2px;
 }
 .notVisited {
-  color: red;
+  color: rgba(156, 46, 46, 0.801);
   border: 0.5px solid black;
   height: 100%;
 }
 .question_container {
-  background-color: skyblue;
-  height: 80%;
+  background-color: rgba(141, 213, 241, 0.932);
+  height: auto
 }
 .notAnswered {
-  color: red;
+  color: rgba(133, 30, 30, 0.929);
   font-size: 3.5rem;
-  transform: rotate(180deg);
   margin: 2px;
+  box-sizing: border-box;
+}
+.outline {
+  border-radius: 8px;
+  border: 4px solid wheat;
 }
 
 .iconContainer {
   position: relative;
   display: inline-block;
 }
-
+.skip_id {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: black;
+}
 .id {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0.8em;
+  font-size: 1.2rem;
   color: white;
 }
 
+.first_box{
+  display: flex;
+  justify-content: space-between;
+  
+}
 @media screen and (max-width: 768px) {
   .id {
     font-size: 0.6em;

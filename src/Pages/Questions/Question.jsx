@@ -7,7 +7,6 @@ import Userinfo from "../../Component/Userinfo/Userinfo";
 import AttemptedSection from "../../Component/AttemptedSection/AttemptedSection";
 function Question() {
   const navigate = useNavigate();
-
   const submitHanldler = () => {
     alert("Are you sure you want to submit the exam?");
     navigate("/", { replace: true });
@@ -18,7 +17,11 @@ function Question() {
         <div className={classes.first_box}>
           <section className={classes.timer_container}>
             <Timer />
+            <section className={classes.submit_box}>
+              <button onClick={submitHanldler}>Submit</button>
+            </section>
           </section>
+
           <section>
             <QuestionContent questionId={1} />
           </section>
@@ -29,9 +32,6 @@ function Question() {
           </section>
           <section className={classes.attempted_box}>
             <AttemptedSection />
-          </section>
-          <section className={classes.submit_box}>
-            <button onClick={submitHanldler}>Submit</button>
           </section>
         </div>
       </div>

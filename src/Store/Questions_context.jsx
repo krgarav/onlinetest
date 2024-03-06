@@ -1,10 +1,15 @@
 import React from "react";
 
 const QuestionContext = React.createContext({
-    questionsWithAnswered:[],
-    currentQuestion :[],
-    addToCurrentQuestion:()=>{},
-    removeQuestion:()=>{},
+  totalQuestion: [],
+  currentQuestion: [],
+  answeredQuestion: [],
+  markedForReviewQuestion: [],
+  notVisitedQuestion: [],
+  totalQuestionStatusChange:()=>{},
+  addToCurrentQuestion: () => {},
+  addToAnsweredQuestion:()=>{},
+  removeQuestion: () => {},
 });
 
 export default QuestionContext;

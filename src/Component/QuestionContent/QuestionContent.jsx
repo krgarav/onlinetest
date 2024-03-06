@@ -3,20 +3,17 @@ import allQuestions from "../Allquestion/Allquestion";
 import classes from "./QuestionContent.module.css";
 import QuestionContext from "../../Store/Questions_context";
 import { useContext } from "react";
-function QuestionContent(props) {
-  const [currentQuestion, setCurrentQuestion] = useState([]);
-  const [currentQuestionId, setCurrentQuestionId] = useState(2);
+function QuestionContent() {
   const [selectedOption, setSelectedOption] = useState(null);
   const contextState = useContext(QuestionContext);
 
   useEffect(() => {
     contextState.addToCurrentQuestion(1);
+    setSelectedOption(null);
   }, []);
 
-  console.log(contextState);
   const handleOptionChange = (e) => {
     setSelectedOption((value) => {
-      console.log(e.target.value);
       return (value = e.target.value);
     });
   };
@@ -34,42 +31,54 @@ function QuestionContent(props) {
             <li>
               <input
                 type="radio"
+                id={`question_${item.id}_opt1`}
                 name={`question_${item.id}`}
                 value={item.options.opt1}
                 checked={selectedOption === item.options.opt1}
                 onChange={handleOptionChange}
               />
-              <label>{item.options.opt1}</label>
+              <label htmlFor={`question_${item.id}_opt1`}>
+                {item.options.opt1}
+              </label>
             </li>
             <li>
               <input
                 type="radio"
+                id={`question_${item.id}_opt2`}
                 name={`question_${item.id}`}
                 value={item.options.opt2}
                 checked={selectedOption === item.options.opt2}
                 onChange={handleOptionChange}
               />
-              <label>{item.options.opt2}</label>
+              <label htmlFor={`question_${item.id}_opt2`}>
+                {item.options.opt2}
+              </label>
             </li>
             <li>
               <input
                 type="radio"
+                id={`question_${item.id}_opt3`}
                 name={`question_${item.id}`}
                 value={item.options.opt3}
                 checked={selectedOption === item.options.opt3}
                 onChange={handleOptionChange}
               />
-              <label>{item.options.opt3}</label>
+              <label htmlFor={`question_${item.id}_opt3`}>
+                {item.options.opt3}
+              </label>
             </li>
             <li>
               <input
                 type="radio"
+                id={`question_${item.id}_opt4`}
                 name={`question_${item.id}`}
                 value={item.options.opt4}
                 checked={selectedOption === item.options.opt4}
                 onChange={handleOptionChange}
               />
-              <label>{item.options.opt4}</label>
+              <label htmlFor={`question_${item.id}_opt4`}>
+                {item.options.opt4}
+              </label>
             </li>
           </ul>
         </form>
@@ -78,26 +87,39 @@ function QuestionContent(props) {
   });
 
   const prevClickHandler = () => {
-    setCurrentQuestionId((prev) => {
-      if (prev !== 1) {
-        contextState.addToCurrentQuestion(prev - 1);
-        return prev - 1;
-      } else {
-        contextState.addToCurrentQuestion(prev);
-        return prev;
-      }
-    });
+    if (contextState.currentQuestion[0].id !== 1) {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id - 1);
+    } else {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
+    }
   };
   const nextClickHandler = () => {
-    setCurrentQuestionId((next) => {
-      if (next !== allQuestions.length) {
-        contextState.addToCurrentQuestion(next + 1);
-        return next + 1;
-      } else {
-        contextState.addToCurrentQuestion(next);
-        return next;
-      }
-    });
+    if (contextState.currentQuestion[0].id !== allQuestions.length) {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id + 1);
+    } else {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
+    }
+    contextState.addToAnsweredQuestion(
+      contextState.currentQuestion[0].id,
+      selectedOption
+    );
+    contextState.totalQuestionStatusChange(
+      contextState.currentQuestion[0].id,
+      "answered"
+    );
+    setSelectedOption(null);
+  };
+  const reviewHandler = () => {
+    if (contextState.currentQuestion[0].id !== allQuestions.length) {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id + 1);
+    } else {
+      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
+    }
+
+    contextState.totalQuestionStatusChange(
+      contextState.currentQuestion[0].id,
+      "skip"
+    );
   };
   return (
     <Fragment>
@@ -107,7 +129,12 @@ function QuestionContent(props) {
         <hr />
         <div className={classes.button_box}>
           <button onClick={prevClickHandler}>Prev</button>
-          <button className={classes.next_btn} onClick={nextClickHandler}>
+          <button onClick={reviewHandler}>Mark for Review(Skip)</button>
+          <button
+            className={classes.next_btn}
+            disabled={selectedOption === null ? true : false}
+            onClick={nextClickHandler}
+          >
             Save & Next
           </button>
         </div>

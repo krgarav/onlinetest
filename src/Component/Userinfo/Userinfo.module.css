@@ -5,20 +5,20 @@
 .user_container {
   display: flex;
   justify-content: space-around;
-  border: 2px solid blue;
+  height: 100%;
 }
 .person_icon {
   border: 1px solid black;
-  width: 50%;
+  width: 40%;
   text-align: center;
 }
 
 .person_info {
-    text-align: center;
-    width: 50%;
+  padding: 10px;
+  text-align: start;
+  width: 60%;
 }
-.icon{
-    color: orangered;
-
-   
+.icon {
+  color: rgb(153, 78, 50);
+  font-size: 5.2rem;
 }

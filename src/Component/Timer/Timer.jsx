@@ -13,6 +13,7 @@ const Timer = () => {
     return () => clearInterval(interval);
   }, [seconds]);
 
+
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = seconds % 60;
 
@@ -21,10 +22,9 @@ const Timer = () => {
       <h1>
         {` Time Left : ${minutes
           .toString()
-          .padStart(2, "0")} : ${remainingSeconds
-          .toString()
-          .padStart(2, "0")}`}
+          .padStart(2, "0")} : ${remainingSeconds.toString().padStart(2, "0")}`}
       </h1>
+      
     </div>
   );
 };

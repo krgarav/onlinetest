@@ -6,9 +6,14 @@ function Userinfo() {
     <div className={classes.user_container}>
       <section className={classes.person_icon}>
         <IoPersonOutline className={classes.icon} />
+        <br />
+        <br />
+        <h3>John Snow</h3>
       </section>
       <section className={classes.person_info}>
-        <h2>John Snow</h2>
+        <h5>Examination Center : New Delhi</h5>
+        <br />
+        <h5>Roll No: 1234455</h5>
       </section>
     </div>
   );

@@ -3,7 +3,7 @@
     padding: 0;
 }
 .question_box{
-    height: 73dvh;
+    min-height: 73dvh;
     padding: 20px 30px;
     font-size: 1.3rem;
 }

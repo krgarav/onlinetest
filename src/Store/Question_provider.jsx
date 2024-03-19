@@ -9,15 +9,14 @@ let defaultCartState = {
   answeredQuestion: [],
   markedForReviewQuestion: [],
   notVisitedQuestion: [],
+  currentQuestionIndex: 0,
 };
 
 const QuestionProvider = (props) => {
   const [state, setState] = useState(defaultCartState);
-  const addCurrentQuestion = (id) => {
-    const q1 = allQuestions.filter((item) => {
-      return item.id === id;
-    });
-
+  const addCurrentQuestion = (index) => {
+    const q1 = [state.totalQuestion[index]];
+    console.log(q1);
     setState((prevState) => {
       return { ...prevState, currentQuestion: q1 };
     });
@@ -49,16 +48,23 @@ const QuestionProvider = (props) => {
       };
     });
   };
+  const modifyQuestionIndexHandler = (index) => {
+    setState((prevState) => {
+      return { ...prevState, currentQuestionIndex: index };
+    });
+  };
   const questionContext = {
     totalQuestion: state.totalQuestion,
     currentQuestion: state.currentQuestion,
     answeredQuestion: state.answeredQuestion,
     markedForReviewQuestion: state.markedForReviewQuestion,
     notVisitedQuestion: state.notVisitedQuestion,
+    currentQuestionIndex: state.currentQuestionIndex,
     addToCurrentQuestion: addCurrentQuestion,
     removeQuestion: removeQuestion,
     totalQuestionStatusChange: questionStatusHandler,
     addToAnsweredQuestion: answerQuestionHandler,
+    modifyQuestionIndex: modifyQuestionIndexHandler,
   };
 
   return (

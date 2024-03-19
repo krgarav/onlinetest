@@ -31,7 +31,8 @@
 }
 .question_container {
   background-color: rgba(141, 213, 241, 0.932);
-  height: auto
+  /* border: 1px solid black; */
+  
 }
 .notAnswered {
   color: rgba(133, 30, 30, 0.929);

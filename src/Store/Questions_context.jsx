@@ -6,10 +6,12 @@ const QuestionContext = React.createContext({
   answeredQuestion: [],
   markedForReviewQuestion: [],
   notVisitedQuestion: [],
-  totalQuestionStatusChange:()=>{},
+  currentQuestionIndex: 0,
+  totalQuestionStatusChange: () => {},
   addToCurrentQuestion: () => {},
-  addToAnsweredQuestion:()=>{},
+  addToAnsweredQuestion: () => {},
   removeQuestion: () => {},
+  modifyQuestionIndex:()=>{}
 });
 
 export default QuestionContext;

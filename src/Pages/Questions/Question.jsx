@@ -26,7 +26,7 @@ function Question() {
           </section>
 
           <section>
-            <QuestionContent questionId={1} />
+            <QuestionContent  />
           </section>
         </div>
         <div className={classes.second_box}>

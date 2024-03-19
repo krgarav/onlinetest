@@ -8,7 +8,7 @@ function QuestionContent() {
   const contextState = useContext(QuestionContext);
 
   useEffect(() => {
-    contextState.addToCurrentQuestion(1);
+    contextState.addToCurrentQuestion(0);
     setSelectedOption(null);
   }, []);
 
@@ -20,10 +20,10 @@ function QuestionContent() {
   const singleQuestion = contextState.currentQuestion.map((item, index) => {
     return (
       <div key={index}>
-        <h1>Question No {item.id} </h1>
+        <h1>Question No {contextState.currentQuestionIndex + 1} </h1>
         <hr />
         <h4>
-          Q{item.id} {item.question}
+          Q{contextState.currentQuestionIndex + 1} {item.question}
         </h4>
 
         <form>
@@ -87,18 +87,23 @@ function QuestionContent() {
   });
 
   const prevClickHandler = () => {
-    if (contextState.currentQuestion[0].id !== 1) {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id - 1);
+    const index = contextState.currentQuestionIndex - 1;
+    if (contextState.currentQuestionIndex !== 0) {
+      contextState.modifyQuestionIndex(index);
+      contextState.addToCurrentQuestion(index);
     } else {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
+      contextState.addToCurrentQuestion(contextState.currentQuestionIndex);
     }
   };
   const nextClickHandler = () => {
-    if (contextState.currentQuestion[0].id !== allQuestions.length) {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id + 1);
+    const index = contextState.currentQuestionIndex + 1;
+    if (contextState.currentQuestionIndex !== allQuestions.length) {
+      contextState.modifyQuestionIndex(index);
+      contextState.addToCurrentQuestion(index);
     } else {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
+      contextState.addToCurrentQuestion(contextState.currentQuestionIndex);
     }
+
     contextState.addToAnsweredQuestion(
       contextState.currentQuestion[0].id,
       selectedOption
@@ -110,11 +115,9 @@ function QuestionContent() {
     setSelectedOption(null);
   };
   const reviewHandler = () => {
-    if (contextState.currentQuestion[0].id !== allQuestions.length) {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id + 1);
-    } else {
-      contextState.addToCurrentQuestion(contextState.currentQuestion[0].id);
-    }
+    const index = contextState.currentQuestionIndex + 1;
+    contextState.modifyQuestionIndex(index);
+    contextState.addToCurrentQuestion(index);
 
     contextState.totalQuestionStatusChange(
       contextState.currentQuestion[0].id,

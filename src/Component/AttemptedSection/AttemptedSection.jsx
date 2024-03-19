@@ -6,12 +6,12 @@ import { useContext } from "react";
 import { FaSquare } from "react-icons/fa6";
 function AttemptedSection() {
   const contextState = useContext(QuestionContext);
-  const handleClick = (id) => {
-    contextState.addToCurrentQuestion(id);
+  const handleClick = (index) => {
+    contextState.addToCurrentQuestion(index);
     contextState.totalQuestionStatusChange("visited");
   };
 
-  const iconpack = contextState.totalQuestion.map((item) => {
+  const iconpack = contextState.totalQuestion.map((item,index) => {
     let activeClass = "";
     let activeFontClass = "";
     let activeContainer = classes.iconContainer;
@@ -33,7 +33,7 @@ function AttemptedSection() {
       activeClass = classes.skip;
       activeFontClass = classes.skip_id;
     }
-    console.log(activeContainer);
+
     return (
       <Col
         key={item.id}
@@ -43,7 +43,7 @@ function AttemptedSection() {
       >
         <div className={classes.iconContainer}>
           <FaSquare className={`${activeClass} ${activeContainer}`} />
-          <span className={activeFontClass}>{item.id}</span>
+          <span className={activeFontClass}>{index+1}</span>
         </div>
       </Col>
     );

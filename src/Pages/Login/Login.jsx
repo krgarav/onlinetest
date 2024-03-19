@@ -11,7 +11,7 @@ function Login() {
     const enteredRollNumber = rollRef.current.value;
     const enteredPassword = passwordRef.current.value;
     console.log(enteredRollNumber, enteredPassword);
-    navigate("/questions", { replace: true });
+    navigate("/instruction", { replace: true });
   };
 
   return (

@@ -1,9 +1,9 @@
-import React, { useReducer, useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Question_context from "./Questions_context.jsx";
 import allQuestions from "../Component/Allquestion/Allquestion.js";
 let defaultCartState = {
   totalQuestion: allQuestions.map((item) => {
-    return { ...item, status: "not visited" };
+    return { ...item, status: "not visited", answer: "" };
   }),
   currentQuestion: [],
   answeredQuestion: [],
@@ -16,7 +16,6 @@ const QuestionProvider = (props) => {
   const [state, setState] = useState(defaultCartState);
   const addCurrentQuestion = (index) => {
     const q1 = [state.totalQuestion[index]];
-    console.log(q1);
     setState((prevState) => {
       return { ...prevState, currentQuestion: q1 };
     });
@@ -34,20 +33,23 @@ const QuestionProvider = (props) => {
       return { ...prev, totalQuestion: updatedQuestion };
     });
   };
-  const answerQuestionHandler = (id, answer) => {
-    const question = state.totalQuestion.filter((item) => {
-      return item.id === id;
-    });
-    const obj = { question, answer };
-    const updatedQuestionAnswer = [...state.answeredQuestion, obj];
-    console.log(updatedQuestionAnswer);
-    setState((prevState) => {
-      return {
-        ...prevState,
-        answeredQuestion: updatedQuestionAnswer,
-      };
-    });
+  const answerQuestionHandler = (index, optionNumber, enteredAnswer) => {
+    // Clone the state to avoid mutating it directly
+    const updatedQuestions = [...state.totalQuestion];
+    console.log(index, enteredAnswer);
+    // Update the answer for the specified question index
+    updatedQuestions[index].answer = {
+      optionNumber,
+      enteredAnswer,
+    };
+
+    // Update the state with the modified questions array
+    setState((prevState) => ({
+      ...prevState,
+      totalQuestion: updatedQuestions,
+    }));
   };
+
   const modifyQuestionIndexHandler = (index) => {
     setState((prevState) => {
       return { ...prevState, currentQuestionIndex: index };

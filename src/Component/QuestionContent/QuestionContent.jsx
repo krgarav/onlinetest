@@ -5,14 +5,37 @@ import QuestionContext from "../../Store/Questions_context";
 import { useContext } from "react";
 function QuestionContent() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionNumber, setSelectedOptionNumber] = useState(null);
   const contextState = useContext(QuestionContext);
 
   useEffect(() => {
     contextState.addToCurrentQuestion(0);
-    setSelectedOption(null);
   }, []);
-
+  useEffect(() => {
+    if (contextState.currentQuestion[0]) {
+      // console.log(contextState.currentQuestion[0].answer==="")
+      
+      if (contextState.currentQuestion[0].answer === "") {
+        setSelectedOption(null);
+      } else {
+        setSelectedOption(contextState.currentQuestion[0].answer.enteredAnswer);
+      }
+    }
+  }, [contextState.currentQuestion]);
+  console.log(contextState.totalQuestion)
   const handleOptionChange = (e) => {
+    const form = e.target.closest("form");
+    const radioButtons = form.querySelectorAll('input[type="radio"]');
+    let selectedOptionIndex = 1;
+
+    radioButtons.forEach((radioButton, index) => {
+      if (radioButton.checked) {
+        selectedOptionIndex = index + 1;
+      }
+    });
+
+    console.log("Selected option index:", selectedOptionIndex);
+    setSelectedOptionNumber(selectedOptionIndex);
     setSelectedOption((value) => {
       return (value = e.target.value);
     });
@@ -97,7 +120,7 @@ function QuestionContent() {
   };
   const nextClickHandler = () => {
     const index = contextState.currentQuestionIndex + 1;
-    if (contextState.currentQuestionIndex !== allQuestions.length) {
+    if (contextState.currentQuestionIndex !== allQuestions.length - 1) {
       contextState.modifyQuestionIndex(index);
       contextState.addToCurrentQuestion(index);
     } else {
@@ -105,7 +128,8 @@ function QuestionContent() {
     }
 
     contextState.addToAnsweredQuestion(
-      contextState.currentQuestion[0].id,
+      contextState.currentQuestionIndex,
+      selectedOptionNumber,
       selectedOption
     );
     contextState.totalQuestionStatusChange(

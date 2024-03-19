@@ -12,7 +12,7 @@ function Question() {
   const submitHanldler = () => {
     alert("Are you sure you want to submit the exam?");
     console.log(contextStore.answeredQuestion);
-    navigate("/", { replace: true });
+    navigate("/result", { replace: true });
   };
   return (
     <Fragment>
@@ -26,7 +26,7 @@ function Question() {
           </section>
 
           <section>
-            <QuestionContent  />
+            <QuestionContent />
           </section>
         </div>
         <div className={classes.second_box}>

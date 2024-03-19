@@ -1,16 +1,16 @@
 import React from "react";
 import classes from "./Login.module.css";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 function Login() {
   const rollRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
+
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredRollNumber = rollRef.current.value;
     const enteredPassword = passwordRef.current.value;
-    console.log(enteredRollNumber, enteredPassword);
     navigate("/instruction", { replace: true });
   };
 

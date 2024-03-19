@@ -48,6 +48,7 @@
 .iconContainer {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 .skip_id {
   position: absolute;

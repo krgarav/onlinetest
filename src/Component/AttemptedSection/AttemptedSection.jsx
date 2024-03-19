@@ -8,10 +8,11 @@ function AttemptedSection() {
   const contextState = useContext(QuestionContext);
   const handleClick = (index) => {
     contextState.addToCurrentQuestion(index);
+    contextState.modifyQuestionIndex(index);
     contextState.totalQuestionStatusChange("visited");
   };
 
-  const iconpack = contextState.totalQuestion.map((item,index) => {
+  const iconpack = contextState.totalQuestion.map((item, index) => {
     let activeClass = "";
     let activeFontClass = "";
     let activeContainer = classes.iconContainer;
@@ -36,14 +37,14 @@ function AttemptedSection() {
 
     return (
       <Col
-        key={item.id}
+        key={index}
         onClick={() => {
-          handleClick(item.id);
+          handleClick(index);
         }}
       >
         <div className={classes.iconContainer}>
           <FaSquare className={`${activeClass} ${activeContainer}`} />
-          <span className={activeFontClass}>{index+1}</span>
+          <span className={activeFontClass}>{index + 1}</span>
         </div>
       </Col>
     );
